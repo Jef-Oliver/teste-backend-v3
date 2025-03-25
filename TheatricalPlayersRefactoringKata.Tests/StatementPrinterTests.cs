@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using Xunit;
+using TheatricalPlayersRefactoringKata.Application;
+using TheatricalPlayersRefactoringKata.Domain.Models;
+using TheatricalPlayersRefactoringKata.Formatters;
 
 namespace TheatricalPlayersRefactoringKata.Tests;
 
 public class StatementPrinterTests
 {
+    private readonly StatementPrinter _statementPrinter;
+
+    public StatementPrinterTests()
+    {
+        // Cria uma instância do StatementPrinter com o formatador de texto
+        _statementPrinter = new StatementPrinter(new TextStatementFormatter());
+    }
+
     [Fact]
     [UseReporter(typeof(DiffReporter))]
     public void TestStatementExampleLegacy()
@@ -27,9 +38,7 @@ public class StatementPrinterTests
             }
         );
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.Print(invoice, plays);
-
+        var result = StatementPrinter.PrintAsText(invoice, plays);
         Approvals.Verify(result);
     }
 
@@ -58,9 +67,7 @@ public class StatementPrinterTests
             }
         );
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.Print(invoice, plays);
-
+        var result = StatementPrinter.PrintAsText(invoice, plays);
         Approvals.Verify(result);
     }
 }
