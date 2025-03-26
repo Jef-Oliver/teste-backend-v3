@@ -15,7 +15,6 @@ public class StatementPrinterTests
 
     public StatementPrinterTests()
     {
-        // Cria uma instância do StatementPrinter com o formatador de texto
         _statementPrinter = new StatementPrinter(new TextStatementFormatter());
     }
 
